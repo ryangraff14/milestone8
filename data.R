@@ -37,8 +37,9 @@ draft1 <- read_xlsx("raw-draft-data/draft_data.xlsx", skip = 1) %>%
   clean_names()
 
 draft2 <- draft1 %>% 
-  select(rk, pk, year, rd, tm, player, fg_percent, x3p_percent, ft_percent, mp_17, pts_18, trb_19, ast_20, ws_48, bpm, vorp) %>% 
+  select(pk, year, rd, tm, player, fg_percent, x3p_percent, ft_percent, mp_17, pts_18, trb_19, ast_20, ws_48, bpm, vorp) %>% 
   # BPM is historical usage stat since VORP includes playing time
   mutate_all(~replace(., is.na(.), 0))
   
 write_rds(draft2, "clean-draft-data/cleaned.rds", compress = "none")
+write_rds(draft2, "shiny/cleaned.rds", compress = "none")
