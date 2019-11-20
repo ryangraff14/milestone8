@@ -26,8 +26,8 @@ ui <- fluidPage(
       br(),
       br(),
       br(),
-      # Change this
-      img(src = "rstudio.png", height = 70, width = 200),
+      # Change this !!!
+      img(src = "nba_logo.png"),
       br(),
       "Data is sourced from the NBA, basketball-reference.com, and the ballr package"),
     mainPanel(
@@ -137,12 +137,35 @@ tabPanel(
     )
   )
         
+   # Throw in a table here with stat lines of stars      
          
          
          
          
-         
-         )
+         ),
+tabPanel(
+  "Advanced Stats Regressions",
+  # Want to throw in dots of NBA Stars
+  titlePanel("Advanced Stats of Draft Picks since 1987"),
+  fluidRow(
+    h3("Average VORP of Draft Picks 1-60 Since 1987"),
+    column(12,
+           plotOutput("vorpplot")
+    )
+  ),
+  fluidRow(
+    h3("Average BPM of Draft Picks 1-60 Since 1987"),
+    column(12,
+           plotOutput('bpmplot')
+    )
+  )
+  
+  
+  
+  
+  
+  
+)
 
 
 )
@@ -164,6 +187,18 @@ server <- function(input, output) {
       group_by(pk) %>% 
       # mutate or summarize
       summarize(fg_percent = mean(fg_percent), x3p_percent = mean(x3p_percent),ft_percent = mean(ft_percent), mp_17 = mean(mp_17), pts_18 = mean(pts_18),trb_19 = mean(trb_19), ast_20 = mean(ast_20), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp))
+  })
+  output$vorpplot <- renderPlot({
+    draft %>% 
+      group_by(rk) %>% 
+      summarize(vorp = mean(vorp)) %>% 
+      ggplot(aes(x=rk, y=vorp)) + geom_point() + geom_smooth()
+  })
+  output$bpmplot <- renderPlot({
+    draft %>% 
+      group_by(rk) %>% 
+      summarize(bpm = mean(bpm)) %>% 
+      ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth()
   })
   
 }
