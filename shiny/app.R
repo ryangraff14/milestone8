@@ -158,9 +158,14 @@ tabPanel(
     column(12,
            plotOutput('bpmplot')
     )
-  )
+  ),
   
-  
+  fluidRow(
+    h3("Average Win Shares of Draft Picks 1-60 Since 1987"),
+    column(12,
+           plotOutput('wsplot')
+    )
+  )  
   
   
   
@@ -200,7 +205,12 @@ server <- function(input, output) {
       summarize(bpm = mean(bpm)) %>% 
       ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth()
   })
-  
+  output$wsplot <- renderPlot({
+    draft %>% 
+      group_by(rk) %>% 
+      summarize(ws = mean(ws_48)) %>% 
+      ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth()
+  })
 }
 
 # Run the app ----
