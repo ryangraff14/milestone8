@@ -6,7 +6,7 @@
 #
 #    http://shiny.rstudio.com/
 #
-
+library(ballr)
 library(shiny)
 draft <- read_rds("cleaned.rds")
 # Define UI ----
@@ -54,50 +54,50 @@ tabPanel("Trade Machine",
            column(6,
                   h4("Team A"),
                   h2("Pick #1"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radioa1", h3("Round"),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30, selected = "Select Pick #"),
+                  selectInput("selecta1", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                               br(),
                   h2("Pick #2"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radioa2", h3("Round"),
                                 choices = list("Round 1" = 1, "Round 2" = 2)),
                   
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
+                  selectInput("selecta2", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),                        
                   br(),
                   h2("Pick #3"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radioa3", h3("Round"),
                               choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
+                  selectInput("selecta3", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                               ),
                   textInput("text", label = h3("Player #1"), value = ""),
                   textInput("text", label = h3("Player #2"), value = "")),
            column(6,
                   h4("Team B"),
                   h2("Pick #1"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radiob1", h3("Round"),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
+                  selectInput("selectb1", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                   br(),
                   h2("Pick #2"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radiob2", h3("Round"),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
                   
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
+                  selectInput("selectb2", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),                        
                   br(),
                   h2("Pick #3"),
-                  radioButtons("radio", h3("Round"),
+                  radioButtons("radiob3", h3("Round"),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("select", h3("Select pick #"), 
-                              choices = list("Select Pick #" = NULL, "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
+                  selectInput("selectb3", h3("Select pick #"), 
+                              choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                   textInput("text", label = h3("Player #1"), value = ""),
                   textInput("text", label = h3("Player #2"), value = "")
@@ -211,6 +211,67 @@ server <- function(input, output) {
       summarize(ws = mean(ws_48)) %>% 
       ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth()
   })
+ # output$pick1a <- render#????? 
+   # draft %>% 
+   #     filter(rd == input$radio1a, pk == input$select1a) %>% 
+   #       group_by(pk) %>% 
+   # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+   # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  # output$pick2a <- render#????? 
+  # draft %>% 
+  #     filter(rd == input$radio2a, pk == input$select2a) %>% 
+  #       group_by(pk) %>% 
+  # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+  # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  # output$pick3a <- render#????? 
+  # draft %>% 
+  #     filter(rd == input$radio3a, pk == input$select3a) %>% 
+  #       group_by(pk) %>% 
+  # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+  # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  #PLAYER 1A
+  
+  #PLAYER 2A
+  
+  # output$pick1b <- render#????? 
+  # draft %>% 
+  #     filter(rd == input$radio1b, pk == input$select1b) %>% 
+  #       group_by(pk) %>% 
+  # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+  # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  # output$pick2b <- render#????? 
+  # draft %>% 
+  #     filter(rd == input$radio2b, pk == input$select2b) %>% 
+  #       group_by(pk) %>% 
+  # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+  # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  # output$pick3b <- render#????? 
+  # draft %>% 
+  #     filter(rd == input$radio3b, pk == input$select3b) %>% 
+  #       group_by(pk) %>% 
+  # summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)
+  # select(x3p_percent, pts18, ws_48, bpm, vorp)
+  
+  #PLAYER 1B
+  
+  #PLAYER 2B
+  
+  output$lebron <- renderPrint({ lebron_basic <- NBAPlayerPerGameStats("/players/j/jamesle01.html") %>% 
+    filter(season == "Career") %>% 
+    select(fgpercent, x3ppercent, ftpercent, mp, pts, trb, ast)
+  
+  lebron_adv <- NBAPerGameAdvStatistics(season = 2009) %>% 
+    filter(rk == "208") %>% 
+    select(ws_48, bpm, vorp)
+  
+  lebron <- merge(lebron_basic, lebron_adv) })
+  # What if i move the folder to my shiny folder? Then can I use the vectors Ive created??
+  
 }
 
 # Run the app ----
