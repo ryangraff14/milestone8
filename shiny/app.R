@@ -17,7 +17,7 @@ ui <- fluidPage(
   titlePanel("NBA Trade Machine"),
   sidebarLayout(
     sidebarPanel(
-      h2("Installation "),
+      h2("Installation"),
       p("This project requires, among others, the ballr package, which can be installed with:"),
       code('install.packages("devtools")
             library(devtools)
@@ -31,20 +31,16 @@ ui <- fluidPage(
       br(),
       "Data is sourced from the NBA, basketball-reference.com, and the ballr package"),
     mainPanel(
-      h1("Introducing Shiny"),
-      p("Shiny is a new package from RStudio that makes it ", 
-        em("incredibly easy "), 
-        "to build interactive web applications with R."),
+      h1("NBA Trade Machine"),
+      p("Do you ever look at an NBA trade and wonder, is that really an equal swap? Which team won that trade?  How much are those draft picks really worth?  Look no further; welcome to the NBA Trade Machine!"),
       br(),
-      p("For an introduction and live examples, visit the ",
-        a("Shiny homepage.", 
-          href = "http://shiny.rstudio.com")),
+      p("On this site, you can craft your own trades and see which side one the trade in terms of stats such as 3pt shooting percentage, Win Shares, and vorp.  Additionally, examine the average stats of all 60 respective NBA draft slots, and view regressions of their values among different statistics." ),
       br(),
-      h2("Features"),
-      p("- Build useful web applications with only a few lines of code—no JavaScript required."),
-      p("- Shiny applications are automatically 'live' in the same way that ", 
-        strong("spreadsheets"),
-        " are live. Outputs change instantly as users modify inputs, without requiring a reload of the browser.")
+      h2("Key Stats Glossary"),
+      p("- Vorp - ......."),
+      p("- Win Shares - ......."),
+      p("- BPM - ......."),
+      p("- How the Trade Machine works? - I have averaged out the values of each draft slot using every single draft from 1987 forward.  Why then? Because that was the start of the modern NBA (the last of Magic v Bird baby!)  Regardless, I take the average values of the pics along with the stat lines of whatever players are included in the deal, total them up, and then compare.")
     )
   )
 ), 
@@ -82,6 +78,7 @@ tabPanel("Trade Machine",
                   radioButtons("radiob1", h3("Round"),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
                   selectInput("selectb1", h3("Select pick #"), 
+                              # PUT IN SOMETHING THAT RETURNS 0!
                               choices = list("1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                   br(),
@@ -261,15 +258,15 @@ server <- function(input, output) {
   
   #PLAYER 2B
   
-  output$lebron <- renderPrint({ lebron_basic <- NBAPlayerPerGameStats("/players/j/jamesle01.html") %>% 
-    filter(season == "Career") %>% 
-    select(fgpercent, x3ppercent, ftpercent, mp, pts, trb, ast)
+#  output$lebron <- renderPrint({ lebron_basic <- NBAPlayerPerGameStats("/players/j/jamesle01.html") %>% 
+ #   filter(season == "Career") %>% 
+  #  select(fgpercent, x3ppercent, ftpercent, mp, pts, trb, ast)
   
-  lebron_adv <- NBAPerGameAdvStatistics(season = 2009) %>% 
-    filter(rk == "208") %>% 
-    select(ws_48, bpm, vorp)
+#  lebron_adv <- NBAPerGameAdvStatistics(season = 2009) %>% 
+ #   filter(rk == "208") %>% 
+  #  select(ws_48, bpm, vorp)
   
-  lebron <- merge(lebron_basic, lebron_adv) })
+#  lebron <- merge(lebron_basic, lebron_adv) })
   # What if i move the folder to my shiny folder? Then can I use the vectors Ive created??
   
 }
