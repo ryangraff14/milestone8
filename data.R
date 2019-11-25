@@ -44,8 +44,12 @@ draft2 <- draft1 %>%
 write_rds(draft2, "clean-draft-data/cleaned.rds", compress = "none")
 write_rds(draft2, "shiny/cleaned.rds", compress = "none")
 
+dir.create("clean-player-data")
 
+player1 <- read_xlsx("clean-player-data/players_2018.xlsx") %>% 
+  separate(Player, into = c("Name", "ID"), sep = "\\\\")
 
+write_rds(player1, "shiny/cleaned_player.rds", compress = "none")
 
 
 
