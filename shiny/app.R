@@ -110,7 +110,8 @@ tabPanel("Trade Machine",
          ),
          fluidRow(
            h1("So which team wins the trade?", align = "center"),
-           h2(outcome)
+           h3(textOutput('trade_decision'), align = "center"),
+           h5(textOutput('test'), align = "center")
         
          # Trade Comparison Result will go here
          
@@ -216,153 +217,169 @@ server <- function(input, output) {
       summarize(ws = mean(ws_48)) %>% 
       ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth()
   })
-  
- pick1a <-
-    draft %>%
-   # changed to and, not comma
-        filter(rd == input$radio1a & pk == input$select1a) %>%
+ 
+
+     output$test <- renderText({
+       kane <- "hi"
+       kane
+     })
+     
+      output$trade_decision <- renderText({
+        
+        pick1a <-
+          draft %>%
+          # changed to and, not comma
+          filter(rd == input$radioa1 & pk == input$selecta1) %>%
           group_by(pk) %>%
-   # Potentially don't need this group by 
-    summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-    select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  pick2a <-
-   draft %>%
-       filter(rd == input$radio2a, pk == input$select2a) %>%
-         group_by(pk) %>%
-   summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-   select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  pick3a <-
-   draft %>%
-       filter(rd == input$radio3a, pk == input$select3a) %>%
-         group_by(pk) %>%
-   summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-   select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  picksa <- rbind(pick1a, pick2a, pick3a)
-
-  # Player B1
-  ida4 <- player %>%
-    filter(Name == "input$selecta4") %>%
-    select(ID)
-
-  lettera4 <- str_split("input$selecta4", " ", simplify = TRUE)[,2] %>%
-    substr(1, 1) %>%
-    tolower()
-
-  codea1 <- str_replace_all(paste("/player/", lettera4, "/", ida4, ".html"), fixed(" "), "")
-
-  playera1_basic <- NBAPlayerPerGameStats(codea1)
-  filter(season == "Career") %>%
-    select(fx3ppercent, pts)
-
-  playera1_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
-    filter(player == "input$selecta4") %>%
-    select(ws_48, bpm, vorp)
-
-  playera1 <- merge(playera1_basic, playera1_adv)
-  # Player A2
-  ida5 <- player %>%
-    filter(Name == "input$selecta5") %>%
-    select(ID)
-
-  lettera5 <- str_split("input$selecta5", " ", simplify = TRUE)[,2] %>%
-    substr(1, 1) %>%
-    tolower()
-
-  codea2 <- str_replace_all(paste("/player/", lettera5, "/", ida5, ".html"), fixed(" "), "")
-
-  playera2_basic <- NBAPlayerPerGameStats(codea2)
-  filter(season == "Career") %>%
-    select(fx3ppercent, pts)
-
-  playera2_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
-    filter(player == "input$selecta5") %>%
-    select(ws_48, bpm, vorp)
-
-  playera2 <- merge(playera2_basic, playera2_adv)
-
-  playera <- rbind(playera1, playera2)
-
-  teama <- rbind(picksa, playera) %>% 
-    summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-    select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  pick1b <-
-  draft %>%
-  filter(rd == input$radio1b, pk == input$select1b) %>%
-  group_by(pk) %>%
-  summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-  select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-pick2b <-
-  draft %>%
-  filter(rd == input$radio2b, pk == input$select2b) %>%
-  group_by(pk) %>%
-  summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-  select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  pick3b <-
-   draft %>%
-       filter(rd == input$radio3b, pk == input$select3b) %>%
-         group_by(pk) %>%
-   summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-   select(x3p_percent, pts_18, ws_48, bpm, vorp)
-
-  picksb <- rbind(pick1b, pick2b, pick3b)
-  # Player B1
-  idb4 <- player %>%
-    filter(Name == "input$selectb4") %>%
-    select(ID)
-
-  letterb4 <- str_split("input$selectb4", " ", simplify = TRUE)[,2] %>%
-    substr(1, 1) %>%
-    tolower()
-
-  codeb1 <- str_replace_all(paste("/player/", letterb4, "/", idb4, ".html"), fixed(" "), "")
-
-  playerb1_basic <- NBAPlayerPerGameStats(codeb1)
-     filter(season == "Career") %>%
-       select(fx3ppercent, pts)
-
-   playerb1_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
-       filter(player == "input$selectb4") %>%
-       select(ws_48, bpm, vorp)
-
-      playerb1 <- merge(playerb1_basic, playerb1_adv)
-  # Player B2
-      idb5 <- player %>%
-        filter(Name == "input$selectb5") %>%
-        select(ID)
-
-      letterb5 <- str_split("input$selectb5", " ", simplify = TRUE)[,2] %>%
-        substr(1, 1) %>%
-        tolower()
-
-      codeb2 <- str_replace_all(paste("/player/", letterb5, "/", idb5, ".html"), fixed(" "), "")
-
-      playerb2_basic <- NBAPlayerPerGameStats(codeb2)
-      filter(season == "Career") %>%
-        select(fx3ppercent, pts)
-
-      playerb2_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
-        filter(player == "input$selectb5") %>%
-        select(ws_48, bpm, vorp)
-
-      playerb2 <- merge(playerb2_basic, playerb2_adv)
-
-      playerb <- rbind(playerb1, playerb2)
-
-      teamb <- rbind(picksb, playerb) %>% 
-        summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
-        select(x3p_percent, pts_18, ws_48, bpm, vorp)
+          # Potentially don't need this group by 
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        pick2a <-
+          draft %>%
+          filter(rd == input$radioa2, pk == input$selecta2) %>%
+          group_by(pk) %>%
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        pick3a <-
+          draft %>%
+          filter(rd == input$radioa3, pk == input$selecta3) %>%
+          group_by(pk) %>%
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        picksa <- rbind(pick1a, pick2a, pick3a)
+        
+        # Player B1
+        ida4 <- player %>%
+          filter(Name == input$selecta4) %>%
+          select(ID)
+        # took off quotes off input
+        lettera4 <- str_split(input$selecta4, " ", simplify = TRUE)[,2] %>%
+          substr(1, 1) %>%
+          tolower()
+        
+        codea1 <- str_replace_all(paste("/players/", lettera4, "/", ida4, ".html"), fixed(" "), "")
+        
+        playera1_basic <- NBAPlayerPerGameStats(codea1) %>% 
+          filter(season == "Career") %>%
+          select(x3ppercent, pts)
+        
+        playera1_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
+          filter(player == input$selecta4) %>%
+          select(ws_48, bpm, vorp)
+        
+        playera1 <- merge(playera1_basic, playera1_adv)
+        # Player A2
+        ida5 <- player %>%
+          filter(Name == input$selecta5) %>%
+          select(ID)
+        
+        lettera5 <- str_split(input$selecta5, " ", simplify = TRUE)[,2] %>%
+          substr(1, 1) %>%
+          tolower()
+        
+        codea2 <- str_replace_all(paste("/players/", lettera5, "/", ida5, ".html"), fixed(" "), "")
+        
+        playera2_basic <- NBAPlayerPerGameStats(codea2) %>% 
+          filter(season == "Career") %>%
+          select(x3ppercent, pts)
+        
+        playera2_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
+          filter(player == input$selecta5) %>%
+          select(ws_48, bpm, vorp)
+        
+        playera2 <- merge(playera2_basic, playera2_adv)
+        
+        playera <- rbind(playera1, playera2)
+        
+        playera <- playera %>% select("x3p_percent"=x3ppercent, "pts_18" =pts, ws_48, bpm, vorp)
+        
+        teama <- rbind(picksa, playera) %>% 
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        pick1b <-
+          draft %>%
+          filter(rd == input$radiob1, pk == input$selectb1) %>%
+          group_by(pk) %>%
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        pick2b <-
+          draft %>%
+          filter(rd == input$radiob2, pk == input$selectb2) %>%
+          group_by(pk) %>%
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        pick3b <-
+          draft %>%
+          filter(rd == input$radiob3, pk == input$selectb3) %>%
+          group_by(pk) %>%
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        picksb <- rbind(pick1b, pick2b, pick3b)
+        # Player B1
+        idb4 <- player %>%
+          filter(Name == input$selectb4) %>%
+          select(ID)
+        
+        letterb4 <- str_split(input$selectb4, " ", simplify = TRUE)[,2] %>%
+          substr(1, 1) %>%
+          tolower()
+        
+        codeb1 <- str_replace_all(paste("/players/", letterb4, "/", idb4, ".html"), fixed(" "), "")
+        
+        playerb1_basic <- NBAPlayerPerGameStats(codeb1) %>% 
+          filter(season == "Career") %>%
+          select(x3ppercent, pts)
+        
+        playerb1_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
+          filter(player == input$selectb4) %>%
+          select(ws_48, bpm, vorp)
+        
+        playerb1 <- merge(playerb1_basic, playerb1_adv)
+        # Player B2
+        idb5 <- player %>%
+          filter(Name == input$selectb5) %>%
+          select(ID)
+        
+        letterb5 <- str_split(input$selectb5, " ", simplify = TRUE)[,2] %>%
+          substr(1, 1) %>%
+          tolower()
+        
+        codeb2 <- str_replace_all(paste("/players/", letterb5, "/", idb5, ".html"), fixed(" "), "")
+        
+        playerb2_basic <- NBAPlayerPerGameStats(codeb2) %>% 
+          filter(season == "Career") %>%
+          select(x3ppercent, pts)
+        
+        playerb2_adv <- NBAPerGameAdvStatistics(season = 2018) %>%
+          filter(player == input$selectb5) %>%
+          select(ws_48, bpm, vorp)
+        
+        playerb2 <- merge(playerb2_basic, playerb2_adv)
+        
+        playerb <- rbind(playerb1, playerb2)
+        
+        playerb <- playerb %>% select("x3p_percent"=x3ppercent, "pts_18" =pts, ws_48, bpm, vorp)
+        
+        teamb <- rbind(picksb, playerb) %>% 
+          summarize(x3p_percent = mean(x3p_percent), pts_18 = mean(pts_18), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp)) %>%
+          select(x3p_percent, pts_18, ws_48, bpm, vorp)
+        
+        points_won <- sum(teama > teamb)
+        
+        outcome <- ifelse(points_won >= 3, "Team A is more valuable and has won the trade", "Team B is more valuable and has won the trade")        
+        
+        paste(outcome)
+        
+        })
+    # End reactive wrap?  
       
-      points_won <- sum(teama > teamb)
-      
-      outcome <- ifelse(points_won >= 3, "Team A is more valuable and has won the trade", "Team B is more valuable and has won the trade")
-      
-
 #  output$lebron <- renderPrint({ lebron_basic <- NBAPlayerPerGameStats("/players/j/jamesle01.html") %>% 
  #   filter(season == "Career") %>% 
   #  select(fgpercent, x3ppercent, ftpercent, mp, pts, trb, ast)
