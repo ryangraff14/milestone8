@@ -39,10 +39,14 @@ ui <- fluidPage(
       p("On this site, you can craft your own trades and see which side one the trade in terms of stats such as 3pt shooting percentage, Win Shares, and vorp.  Additionally, examine the average stats of all 60 respective NBA draft slots, and view regressions of their values among different statistics." ),
       br(),
       h2("Key Stats Glossary"),
-      p("- Vorp - ......."),
-      p("- Win Shares - ......."),
-      p("- BPM - ......."),
-      p("- How the Trade Machine works? - I have averaged out the values of each draft slot using every single draft from 1987 forward.  Why then? Because that was the start of the modern NBA (the last of Magic v Bird baby!)  Regardless, I take the average values of the pics along with the stat lines of whatever players are included in the deal, total them up, and then compare.")
+      h4("VORP"),
+      p("Value Over Replacement Player (available since the 1973-74 season in the NBA); a box score estimate of the points per 100 team possessions that a player contributed above a replacement-level (-2.0) player, translated to an average team and prorated to an 82-game season"),
+      h4("Win Shares per 48 minutes"),
+      p("Win Shares is a player statistic which attempts to divvy up credit for team success to the individuals on the team.  It is calculated using player, team and league-wide statistics, and is used in this trade machine on a per-game level."),
+      h4("BPM"),
+      p("Box Plus/Minus (BPM) is a box score-based metric for evaluating basketball players' quality and contribution to the team.  BPM relies on a player's box score information and the team's overall performance to estimate a player's performance relative to league average. BPM is a per-100-possession stat, the same scale as Adjusted Plus/Minus: 0.0 is league average, +5 means the player is 5 points better than an average player over 100 possessions (which is about All-NBA level), -2 is replacement level, and -5 is really bad."),
+      h4("How the Trade Machine works?"),
+      p("I have averaged out the values of each draft slot using every single draft from 1987 forward.  Why then? Because that was the start of the modern NBA (the last of Magic v Bird baby!)  Regardless, I take the average values of the picks along with the average career stat lines of whatever players are included in the deal and select 3 point shooting %, points per game, win shares per game, Box Plus/Minus, and VORP, doing the same for the selected picks. The machine then adds them up collectively, and then compares the values of each side.  For each value that is higher, that side gets a point.  Whichever side has more points is deemed more valuable.")
     )
   )
 ), 
