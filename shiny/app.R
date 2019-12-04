@@ -49,60 +49,64 @@ ui <- fluidPage(
 tabPanel("Trade Machine",
          titlePanel("Trade Machine"),
          fluidRow(
+           h3("Due to the nature of the machine, all 5 spots on each team must be filled out."),
+           h3("However, if you want a player slot to be effectively empty (i.e. mostly or close to 0's), select Jarred Vanderbilt."),
+           h3("If you want a pick slot to be effectively empty, select a 2nd round, 29th overall pick."),
+           h3("Thank you for your cooperation."),
            column(6,
-                  h4("Team A"),
-                  h2("Pick #1"),
-                  radioButtons("radioa1", h3("Round"), selected = character(0),
+                  h2("Team A gives up:"),
+                  h4("Pick #1"),
+                  radioButtons("radioa1", h5("Round"), selected = character(0),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("selecta1", h3("Select pick #"),
+                  selectInput("selecta1", h5("Select pick #"),
                               choices = list("Select pick" = "", "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                               br(),
-                  h2("Pick #2"),
-                  radioButtons("radioa2", h3("Round"), selected = character(0), 
+                  h4("Pick #2"),
+                  radioButtons("radioa2", h5("Round"), selected = character(0), 
                                 choices = list("Round 1" = 1, "Round 2" = 2)),
                   
-                  selectInput("selecta2", h3("Select pick #"), 
+                  selectInput("selecta2", h5("Select pick #"), 
                               choices = list("Select pick" = "", "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),                        
                   br(),
-                  h2("Pick #3"),
-                  radioButtons("radioa3", h3("Round"), selected = character(0),
+                  h4("Pick #3"),
+                  radioButtons("radioa3", h5("Round"), selected = character(0),
                               choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("selecta3", h3("Select pick #"), 
+                  selectInput("selecta3", h5("Select pick #"), 
                               choices = list("Select pick" = "", "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                               ),
-                  selectizeInput("selecta4", h3("Select Player #1"), 
+                  selectizeInput("selecta4", h4("Select Player #1"), 
                               choices = player$Name, multiple = TRUE, options = list(maxItems=1)), 
-                  selectizeInput("selecta5", h3("Select Player #2"), 
+                  selectizeInput("selecta5", h4("Select Player #2"), 
                                  choices = player$Name, multiple = TRUE, options = list(maxItems=1))),
            column(6,
-                  h4("Team B"),
-                  h2("Pick #1"),
-                  radioButtons("radiob1", h3("Round"), selected = character(0),
+                  h2("Team B gives up:"),
+                  h4("Pick #1"),
+                  radioButtons("radiob1", h5("Round"), selected = character(0),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("selectb1", h3("Select pick #"), 
+                  selectInput("selectb1", h5("Select pick #"), 
                               # PUT IN SOMETHING THAT RETURNS 0!
                               choices = list("Select pick" = "","1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                   br(),
-                  h2("Pick #2"),
-                  radioButtons("radiob2", h3("Round"), selected = character(0),
+                  h4("Pick #2"),
+                  radioButtons("radiob2", h5("Round"), selected = character(0),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
                   
-                  selectInput("selectb2", h3("Select pick #"), 
+                  selectInput("selectb2", h5("Select pick #"), 
                               choices = list("Select pick" = "", "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),                        
                   br(),
-                  h2("Pick #3"),
-                  radioButtons("radiob3", h3("Round"), selected = character(0),
+                  h4("Pick #3"),
+                  radioButtons("radiob3", h5("Round"), selected = character(0),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
-                  selectInput("selectb3", h3("Select pick #"), 
+                  selectInput("selectb3", h5("Select pick #"), 
                               choices = list("Select pick" = "", "1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
-                  selectizeInput("selectb4", h3("Select Player #1"), 
+                  selectizeInput("selectb4", h4("Select Player #1"), 
                                  choices = player$Name, multiple = TRUE, options = list(maxItems=1)), 
-                  selectizeInput("selectb5", h3("Select Player #2"), 
+                  selectizeInput("selectb5", h4("Select Player #2"), 
                                  choices = player$Name, multiple = TRUE, options = list(maxItems=1))
                 #column close
            )
@@ -113,19 +117,6 @@ tabPanel("Trade Machine",
            h3(textOutput('trade_decision'), align = "center"),
            h5(textOutput('test'), align = "center")
         
-         # Trade Comparison Result will go here
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
          )),
 tabPanel(
   "Individual Pick Values",
@@ -167,18 +158,12 @@ tabPanel(
   ),
   
   fluidRow(
-    h3("Average Win Shares of Draft Picks 1-60 Since 1987"),
+    h3("Average Win Shares Per Game of Draft Picks 1-60 Since 1987"),
     column(12,
            plotOutput('wsplot')
     )
   )  
-  
-  
-  
-  
 )
-
-
 )
 )
 
@@ -203,24 +188,23 @@ server <- function(input, output) {
     draft %>% 
       group_by(rk) %>% 
       summarize(vorp = mean(vorp)) %>% 
-      ggplot(aes(x=rk, y=vorp)) + geom_point() + geom_smooth()
+      ggplot(aes(x=rk, y=vorp)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
   })
   output$bpmplot <- renderPlot({
     draft %>% 
       group_by(rk) %>% 
       summarize(bpm = mean(bpm)) %>% 
-      ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth()
+      ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
   })
   output$wsplot <- renderPlot({
     draft %>% 
       group_by(rk) %>% 
       summarize(ws = mean(ws_48)) %>% 
-      ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth()
+      ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
   })
  
-
      output$test <- renderText({
-       kane <- "hi"
+       kane <- "Thank you for trading! Woj and Shams thank you for providing them jobs!"
        kane
      })
      
@@ -373,7 +357,7 @@ server <- function(input, output) {
         
         points_won <- sum(teama > teamb)
         
-        outcome <- ifelse(points_won >= 3, "Team A is more valuable and has won the trade", "Team B is more valuable and has won the trade")        
+        outcome <- ifelse(points_won >= 3, "Team A's offering is more valuable and therefore *Team B* won the trade", "Team B's offering is more valuable and therefore *Team A* has won the trade")        
         
         paste(outcome)
         
