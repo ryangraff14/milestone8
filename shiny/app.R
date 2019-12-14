@@ -150,12 +150,14 @@ tabPanel(
   titlePanel("Advanced Stats of Draft Picks since 1987"),
   fluidRow(
     h3("Average VORP of Draft Picks 1-60 Since 1987"),
+    h5("The red line represents the VORP of a replacement level player i.e. one right between the minors (G-League) and professional (NBA)"),
     column(12,
            plotOutput("vorpplot")
     )
   ),
   fluidRow(
     h3("Average BPM of Draft Picks 1-60 Since 1987"),
+    h5("The red line represents the NBA league average BPM"),
     column(12,
            plotOutput('bpmplot')
     )
@@ -163,6 +165,7 @@ tabPanel(
   
   fluidRow(
     h3("Average Win Shares Per Game of Draft Picks 1-60 Since 1987"),
+    h5("The red line represents the NBA league average win shares per game"),
     column(12,
            plotOutput('wsplot')
     )
@@ -179,32 +182,32 @@ server <- function(input, output) {
       filter(rd == "1") %>% 
       group_by(pk) %>% 
       # mutate or summarize
-      summarize(fg_percent = mean(fg_percent), x3p_percent = mean(x3p_percent),ft_percent = mean(ft_percent), mp_17 = mean(mp_17), pts_18 = mean(pts_18),trb_19 = mean(trb_19), ast_20 = mean(ast_20), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp))
+      summarize("FG%" = mean(fg_percent), "3PT%" = mean(x3p_percent),"FT%" = mean(ft_percent), "Minutes Played Per Game" = mean(mp_17), "PPG" = mean(pts_18),"Rebounds Per Game" = mean(trb_19), "Assists Per Game" = mean(ast_20), "Win Shares Per Game" = mean(ws_48), "BPM" = mean(bpm), "VORP" = mean(vorp))
   })
   output$round2 <- renderTable({
     draft %>% 
       filter(rd == "2") %>% 
       group_by(pk) %>% 
       # mutate or summarize
-      summarize(fg_percent = mean(fg_percent), x3p_percent = mean(x3p_percent),ft_percent = mean(ft_percent), mp_17 = mean(mp_17), pts_18 = mean(pts_18),trb_19 = mean(trb_19), ast_20 = mean(ast_20), ws_48 = mean(ws_48), bpm = mean(bpm), vorp = mean(vorp))
+      summarize("FG%" = mean(fg_percent), "3PT%" = mean(x3p_percent),"FT%" = mean(ft_percent), "Minutes Played Per Game" = mean(mp_17), "PPG" = mean(pts_18),"Rebounds Per Game" = mean(trb_19), "Assists Per Game" = mean(ast_20), "Win Shares Per Game" = mean(ws_48), "BPM" = mean(bpm), "VORP" = mean(vorp))
   })
   output$vorpplot <- renderPlot({
     draft %>% 
       group_by(rk) %>% 
       summarize(vorp = mean(vorp)) %>% 
-      ggplot(aes(x=rk, y=vorp)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
+      ggplot(aes(x=rk, y=vorp)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue", alpha = 0.5) + labs(x = "Picks Ranked 1-60 (i.e. 2nd round, 1st pick = 31)", y = "VORP") + geom_hline(yintercept = -2, color = "red", alpha = 0.5)
   })
   output$bpmplot <- renderPlot({
     draft %>% 
       group_by(rk) %>% 
       summarize(bpm = mean(bpm)) %>% 
-      ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
+      ggplot(aes(x=rk, y=bpm)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue", alpha = 0.5) + labs(x = "Picks Ranked 1-60 (i.e. 2nd round, 1st pick = 31)", y = "Box Plus/Minus") + geom_hline(yintercept = 0, color = "red", alpha = 0.5)
   })
   output$wsplot <- renderPlot({
     draft %>% 
       group_by(rk) %>% 
       summarize(ws = mean(ws_48)) %>% 
-      ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue")
+      ggplot(aes(x=rk, y=ws)) + geom_point() + geom_smooth() + geom_vline(xintercept = 30.5, color = "blue", alpha = 0.5) + labs(x = "Picks Ranked 1-60 (i.e. 2nd round, 1st pick = 31)", y = "Win Shares per Game (48 minutes = 1 NBA Game)") + geom_hline(yintercept = 0.1, color = "red", alpha = 0.5)
   })
  
      output$test <- renderText({
@@ -361,23 +364,12 @@ server <- function(input, output) {
         
         points_won <- sum(teama > teamb)
         
-        outcome <- ifelse(points_won >= 3, "Team A's offering is more valuable and therefore *Team B* won the trade", "Team B's offering is more valuable and therefore *Team A* has won the trade")        
+        outcome <- ifelse(points_won >= 3, "Team A's offering is more valuable and therefore *Team B* has statistically won the trade", "Team B's offering is more valuable and therefore *Team A* has statistically won the trade")        
         
         paste(outcome)
         
         })
     # End reactive wrap?  
-      
-#  output$lebron <- renderPrint({ lebron_basic <- NBAPlayerPerGameStats("/players/j/jamesle01.html") %>% 
- #   filter(season == "Career") %>% 
-  #  select(fgpercent, x3ppercent, ftpercent, mp, pts, trb, ast)
-  
-#  lebron_adv <- NBAPerGameAdvStatistics(season = 2009) %>% 
- #   filter(rk == "208") %>% 
-  #  select(ws_48, bpm, vorp)
-  
-#  lebron <- merge(lebron_basic, lebron_adv) })
-  # What if i move the folder to my shiny folder? Then can I use the vectors Ive created??
   
 }
 
