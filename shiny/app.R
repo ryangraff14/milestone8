@@ -8,6 +8,7 @@
 #
 library(ballr)
 library(shiny)
+library(vembedr)
 library(tidyverse)
 draft <- read_rds("cleaned.rds")
 player <- read_rds("cleaned_player.rds")
@@ -135,16 +136,9 @@ tabPanel(
            tableOutput('round2')
     )
   )
-        
-   # Throw in a table here with stat lines of stars      
-         
-         
-         
-         
          ),
 tabPanel(
   "Advanced Stats Regressions",
-  # Want to throw in dots of NBA Stars
   titlePanel("Advanced Stats of Draft Picks since 1987"),
   fluidRow(
     h3("Average VORP of Draft Picks 1-60 Since 1987"),
@@ -172,7 +166,14 @@ tabPanel(
     h3("Analysis"),
     h5("Figure 1 shows us that all NBA draft picks on average are statistically worthy of being NBA players, as they are above the -2 value that separates professional NBA players from minor league G-league players.  However, after around pick 15, it becomes clear that the remaining draft picks are worth about the same in terms of VORP.  While perhaps the decline is not as linear as one may have guessed nor do late first round picks show as much promise as one would think, this model generally fits with the assumption that the higher up in the draft on is, the more they are generally worth.  But moving to Figure 2, the data starts to tell a different story.  Modeling the average BPM of draft picks, the line is moving decreasing from left to right as expected, until it gets to about the 35th pick, or 5th pick in the 2nd round.  At this point, the line begins to slope up, showing increased value for late 2nd round picks.  While the line in Figure 3 does not do this, Figure 3 does display numerous high value outliers late in the 2nd round.  What does this mean?  I believe it is illustrating the trend in NBA drafts for teams to take chances late in the second round.  These are players that may have externalities, such as attitude, injury, or international status, pushing down their draft stock in spite of their basketball talent.  Under the common assumption that first picks are more valuable, teams don’t want to spend a pick on these riskier players.  But late in the second round, when a draft pick is supposed to be the least valuable, teams are more comfortable taking chances on these players, who may pan out into better players than their late first round and early second round counterparts.")
   )
-)
+),
+tabPanel("Video",
+         
+         # Creating a new tab and using vembedr package to embed my Youtube video
+         
+         titlePanel("Video about this NBA Trade Machine and Draft Pick Value Website"),
+         embed_youtube("RRB9EI9g2xM", width = 500, height = 280, allowfullscreen = TRUE)
+         )
 )
 )
 
