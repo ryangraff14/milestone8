@@ -28,8 +28,6 @@ ui <- fluidPage(
       br(),
       br(),
       br(),
-      # Change this !!!
-      img(src = "nba_logo.png"),
       br(),
       "Data is sourced from the NBA, basketball-reference.com, and the ballr package"),
     mainPanel(
@@ -38,15 +36,16 @@ ui <- fluidPage(
       br(),
       p("On this site, you can craft your own trades and see which side one the trade in terms of stats such as 3pt shooting percentage, Win Shares, and vorp.  Additionally, examine the average stats of all 60 respective NBA draft slots, and view regressions of their values among different statistics." ),
       br(),
+      h2("How the Trade Machine works?"),
+      p("I have averaged out the values of each draft slot using every single draft from 1987 forward.  Why then? Because that was the start of the modern NBA (the last of Magic v Bird baby!)  Regardless, I take the average values of the picks along with the average career stat lines of whatever players are included in the deal and select 3 point shooting %, points per game, win shares per game, Box Plus/Minus, and VORP, doing the same for the selected picks. The machine then adds them up collectively, and then compares the values of each side.  For each value that is higher, that side gets a point.  Whichever side has more points is deemed more valuable."),
       h2("Key Stats Glossary"),
       h4("VORP"),
       p("Value Over Replacement Player (available since the 1973-74 season in the NBA); a box score estimate of the points per 100 team possessions that a player contributed above a replacement-level (-2.0) player, translated to an average team and prorated to an 82-game season"),
       h4("Win Shares per 48 minutes"),
       p("Win Shares is a player statistic which attempts to divvy up credit for team success to the individuals on the team.  It is calculated using player, team and league-wide statistics, and is used in this trade machine on a per-game level."),
       h4("BPM"),
-      p("Box Plus/Minus (BPM) is a box score-based metric for evaluating basketball players' quality and contribution to the team.  BPM relies on a player's box score information and the team's overall performance to estimate a player's performance relative to league average. BPM is a per-100-possession stat, the same scale as Adjusted Plus/Minus: 0.0 is league average, +5 means the player is 5 points better than an average player over 100 possessions (which is about All-NBA level), -2 is replacement level, and -5 is really bad."),
-      h4("How the Trade Machine works?"),
-      p("I have averaged out the values of each draft slot using every single draft from 1987 forward.  Why then? Because that was the start of the modern NBA (the last of Magic v Bird baby!)  Regardless, I take the average values of the picks along with the average career stat lines of whatever players are included in the deal and select 3 point shooting %, points per game, win shares per game, Box Plus/Minus, and VORP, doing the same for the selected picks. The machine then adds them up collectively, and then compares the values of each side.  For each value that is higher, that side gets a point.  Whichever side has more points is deemed more valuable.")
+      p("Box Plus/Minus (BPM) is a box score-based metric for evaluating basketball players' quality and contribution to the team.  BPM relies on a player's box score information and the team's overall performance to estimate a player's performance relative to league average. BPM is a per-100-possession stat, the same scale as Adjusted Plus/Minus: 0.0 is league average, +5 means the player is 5 points better than an average player over 100 possessions (which is about All-NBA level), -2 is replacement level, and -5 is really bad.")
+    
     )
   )
 ), 
@@ -56,7 +55,7 @@ tabPanel("Trade Machine",
            h3("Due to the nature of the machine, all 5 spots on each team must be filled out."),
            h3("However, if you want a player slot to be effectively empty (i.e. mostly or close to 0's), select Jarred Vanderbilt."),
            h3("If you want a pick slot to be effectively empty, select a 2nd round, 29th overall pick."),
-           h3("Thank you for your cooperation."),
+           h3("Please be patient with the machine as it calculates.  Thank you for your cooperation."),
            column(6,
                   h2("Team A gives up:"),
                   h4("Pick #1"),
@@ -90,7 +89,6 @@ tabPanel("Trade Machine",
                   radioButtons("radiob1", h5("Round"), selected = character(0),
                                choices = list("Round 1" = 1, "Round 2" = 2)),
                   selectInput("selectb1", h5("Select pick #"), 
-                              # PUT IN SOMETHING THAT RETURNS 0!
                               choices = list("Select pick" = "","1st" = 1, "2nd" = 2, "3rd" = 3, "4th" = 4, "5th" = 5, "6th" = 6, "7th" = 7, "8th" = 8, "9th" = 9, "10th" = 10, "11th" = 11, "12th" = 12, "13th" = 13, "14th" = 14, "15th" = 15, "16th" = 16, "17th" = 17, "18th" = 18, "19th" = 19, "20th" = 20, "21st" = 21, "22nd" = 22, "23rd" = 23, "24th" = 24, "25th" = 25, "26th" = 26, "27th" = 27, "28th" = 28, "29th" = 29, "30th" = 30),
                   ),
                   br(),
@@ -169,7 +167,11 @@ tabPanel(
     column(12,
            plotOutput('wsplot')
     )
-  )  
+  ),
+  fluidRow(
+    h3("Analysis"),
+    h5("Figure 1 shows us that all NBA draft picks on average are statistically worthy of being NBA players, as they are above the -2 value that separates professional NBA players from minor league G-league players.  However, after around pick 15, it becomes clear that the remaining draft picks are worth about the same in terms of VORP.  While perhaps the decline is not as linear as one may have guessed nor do late first round picks show as much promise as one would think, this model generally fits with the assumption that the higher up in the draft on is, the more they are generally worth.  But moving to Figure 2, the data starts to tell a different story.  Modeling the average BPM of draft picks, the line is moving decreasing from left to right as expected, until it gets to about the 35th pick, or 5th pick in the 2nd round.  At this point, the line begins to slope up, showing increased value for late 2nd round picks.  While the line in Figure 3 does not do this, Figure 3 does display numerous high value outliers late in the 2nd round.  What does this mean?  I believe it is illustrating the trend in NBA drafts for teams to take chances late in the second round.  These are players that may have externalities, such as attitude, injury, or international status, pushing down their draft stock in spite of their basketball talent.  Under the common assumption that first picks are more valuable, teams don’t want to spend a pick on these riskier players.  But late in the second round, when a draft pick is supposed to be the least valuable, teams are more comfortable taking chances on these players, who may pan out into better players than their late first round and early second round counterparts.")
+  )
 )
 )
 )
